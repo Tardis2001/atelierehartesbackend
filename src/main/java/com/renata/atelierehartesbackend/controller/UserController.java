@@ -18,7 +18,7 @@ import com.renata.atelierehartesbackend.service.UserService;
 /**
  * UserController
  */
-@RequestMapping("user")
+@RequestMapping("/user")
 @RestController
  public class UserController {
 
