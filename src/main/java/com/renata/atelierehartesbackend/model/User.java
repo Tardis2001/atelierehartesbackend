@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class User {
-        @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -49,6 +49,7 @@ public class User {
         this.secondName = secondName;
         this.email = email;
         this.username = username;
+        this.role = role;
         this.password = password;
     }
     

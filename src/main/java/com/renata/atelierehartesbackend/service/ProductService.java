@@ -7,10 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.renata.atelierehartesbackend.dto.ProductDto;
+import com.google.protobuf.Option;
+import com.renata.atelierehartesbackend.dto.product.ProductDto;
+import com.renata.atelierehartesbackend.exceptions.ProductNotExistException;
 import com.renata.atelierehartesbackend.model.Category;
 import com.renata.atelierehartesbackend.model.Product;
-import com.renata.atelierehartesbackend.repository.CategoryRepo;
 import com.renata.atelierehartesbackend.repository.ProductRepo;
 
 /**
@@ -41,8 +42,12 @@ public class ProductService {
         }
         return productDtos;
     }
-    public Optional<Product> findbyId(Integer id){
-        return productRepo.findById(id);
+    public Product findbyId(Integer id){
+        Optional<Product> optionalProduct = productRepo.findById(id);
+        if(optionalProduct.isEmpty()){
+            throw new ProductNotExistException("product id is invalid " + id );
+        }
+        return optionalProduct.get();
     }
     public void updateProduct(Integer id,ProductDto productDto,Optional<Category> optinalCategory) throws Exception{
         Optional<Product> optionalProduct = productRepo.findById(id);

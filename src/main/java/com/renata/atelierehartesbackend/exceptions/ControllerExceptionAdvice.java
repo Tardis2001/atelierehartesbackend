@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import io.swagger.models.Response;
+
 @ControllerAdvice
 public class ControllerExceptionAdvice {
     @ExceptionHandler(value = CustomException.class)
@@ -14,6 +16,11 @@ public class ControllerExceptionAdvice {
 
     @ExceptionHandler(value = AuthenticationFailException.class)
     public final ResponseEntity<String> handlerAuthenticationFailException(AuthenticationFailException exception) {
+        return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = ProductNotExistException.class)
+    public final ResponseEntity<String> handlerProductNotExistException(ProductNotExistException exception){
         return new ResponseEntity<>(exception.getMessage(),HttpStatus.BAD_REQUEST);
     }
 }

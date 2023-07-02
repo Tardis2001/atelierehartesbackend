@@ -29,7 +29,7 @@ import com.renata.atelierehartesbackend.service.UserService;
         return userService.signup(signupDto);
     }
     @PostMapping("/signin")
-    public SigninResponseDto signup(@RequestBody SigninDto signupDto){
+    public SigninResponseDto signin(@RequestBody SigninDto signupDto){
         return userService.signin(signupDto);
     }
 }

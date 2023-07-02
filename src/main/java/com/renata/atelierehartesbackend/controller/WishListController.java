@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.renata.atelierehartesbackend.common.ApiResponse;
-import com.renata.atelierehartesbackend.dto.ProductDto;
+import com.renata.atelierehartesbackend.dto.product.ProductDto;
 import com.renata.atelierehartesbackend.enums.Role;
 import com.renata.atelierehartesbackend.model.Product;
 import com.renata.atelierehartesbackend.model.User;
@@ -37,11 +37,9 @@ public class WishListController {
         tokenService.authenticate(token);
         User user = tokenService.getUser(token);
         Wishlist wishlist = new Wishlist(user,product);
-        if(user.getRole() == Role.admin || user.getRole() == Role.manager ){
-            wishlistService.createWishlist(wishlist);
-            return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Added to wishlist"),HttpStatus.CREATED);
-        }
-        return new ResponseEntity<ApiResponse>(new ApiResponse(false,"You don't have permission"),HttpStatus.UNAUTHORIZED);
+        wishlistService.createWishlist(wishlist);
+        return new ResponseEntity<ApiResponse>(new ApiResponse(true, "Added to wishlist"),HttpStatus.CREATED);
+        
     }
     @GetMapping("/{token}")
     public ResponseEntity<List<ProductDto>> getWishList(@PathVariable("token") String token)

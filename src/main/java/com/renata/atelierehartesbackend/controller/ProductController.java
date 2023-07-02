@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.renata.atelierehartesbackend.common.ApiResponse;
-import com.renata.atelierehartesbackend.dto.ProductDto;
+import com.renata.atelierehartesbackend.dto.product.ProductDto;
 import com.renata.atelierehartesbackend.enums.Role;
 import com.renata.atelierehartesbackend.model.Category;
 import com.renata.atelierehartesbackend.model.Product;
@@ -57,9 +57,8 @@ public class ProductController {
         return new ResponseEntity<List<ProductDto>>(body,HttpStatus.OK);
     }
     @GetMapping("/findbyId/{productid}")
-    public ResponseEntity<Optional<Product>> findbyId(@PathVariable Integer id){
-        Optional<Product> body = productService.findbyId(id);
-        return new ResponseEntity<Optional<Product>>(body, HttpStatus.OK);
+    public Product findbyId(@PathVariable Integer id){
+        return productService.findbyId(id);
     }
     @PostMapping("/update/{productid}")
     public ResponseEntity<ApiResponse> updateProduct(@PathVariable Integer productid,ProductDto productDto,@RequestParam("token") String token){
