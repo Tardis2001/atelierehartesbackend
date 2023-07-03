@@ -8,7 +8,10 @@ import javax.naming.AuthenticationException;
 import javax.xml.bind.DatatypeConverter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.renata.atelierehartesbackend.enums.ResponseStatus;
 import com.renata.atelierehartesbackend.enums.Role;
@@ -21,6 +24,7 @@ import com.renata.atelierehartesbackend.model.AutheticationToken;
 import com.renata.atelierehartesbackend.model.User;
 import com.renata.atelierehartesbackend.repository.UserRepo;
 import com.renata.atelierehartesbackend.utils.Helper;
+import com.renata.atelierehartesbackend.common.ApiResponse;
 import com.renata.atelierehartesbackend.config.MessageStrings;
 @Service
 public class UserService {
@@ -94,4 +98,14 @@ public class UserService {
 
         return new SigninResponseDto ("success", token.getToken());
     }
+    public ResponseEntity<ApiResponse> checkadmin(@RequestParam String token) {
+        authenticationService.authenticate(token);
+        User user = authenticationService.getUser(token); 
+        
+        if(user.getRole() == Role.admin){
+                    return new ResponseEntity<ApiResponse>(new ApiResponse(true, "You have permission"), HttpStatus.OK);
+        }
+        return new ResponseEntity<ApiResponse>(new ApiResponse(false, "You don't have permission"), HttpStatus.UNAUTHORIZED);
+    }
+
 }
