@@ -55,8 +55,9 @@ public class CategoryController {
     }
 
     @GetMapping("/findbyId/{categoryid}")
-    public Optional<Category> findById(@PathVariable Integer categoryid){
-        return categoryService.findById(categoryid);
+    public ResponseEntity<Category> findById(@PathVariable Integer categoryid,@RequestParam("token") String token){
+        Optional<Category> category = categoryService.findById(categoryid);
+        return new ResponseEntity<Category>(category.get(),HttpStatus.OK);
     } 
 
     @PostMapping("update/{categoryid}")

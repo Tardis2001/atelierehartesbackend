@@ -31,12 +31,11 @@ import com.renata.atelierehartesbackend.common.ApiResponse;
         return userService.signup(signupDto);
     }
     @PostMapping("/signin")
-    public SigninResponseDto signin(@RequestBody SigninDto signupDto){
-        return userService.signin(signupDto);
+    public SigninResponseDto signin(@RequestBody SigninDto signinDto){
+        return userService.signin(signinDto);
     }
     @PostMapping("/checkadmin")
     public ResponseEntity<ApiResponse> checkadmin(@RequestParam("token") String token){
-        
         return userService.checkadmin(token);
     }
 }

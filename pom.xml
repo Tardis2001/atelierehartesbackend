@@ -21,11 +21,12 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
-
+		
+		<!-- https://mvnrepository.com/artifact/com.stripe/stripe-java -->
 		<dependency>
 			<groupId>com.stripe</groupId>
 			<artifactId>stripe-java</artifactId>
-			<version>20.41.0</version>
+			<version>22.24.0</version>
 		</dependency>
 
 		<dependency>
@@ -79,32 +80,38 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-  <groupId>io.springfox</groupId>
-  <artifactId>springfox-swagger-ui</artifactId>
-  <version>2.9.2</version>
-</dependency>
-<dependency>
-  <groupId>io.springfox</groupId>
-  <artifactId>springfox-swagger2</artifactId>
-  <version>2.9.2</version>
-</dependency>
-<dependency>
-  <groupId>io.springfox</groupId>
-  <artifactId>springfox-schema</artifactId>
-  <version>2.9.2</version>
-</dependency>
-	<dependency>
-		<groupId>org.projectlombok</groupId>
-		<artifactId>lombok</artifactId>
-		<version>1.18.28</version>
-		<scope>provided</scope>
-	</dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-schema</artifactId>
+			<version>2.9.2</version>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.28</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 			<version>2.13.0</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/br.com.uol.pagseguro/pagseguro-api -->
+		<dependency>
+			<groupId>br.com.uol.pagseguro</groupId>
+			<artifactId>pagseguro-api</artifactId>
+			<version>4.1.1</version>
+		</dependency>
 
 
 	</dependencies>
