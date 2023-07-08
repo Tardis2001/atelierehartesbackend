@@ -78,7 +78,6 @@ public class UserService {
                 e.printStackTrace();
             }
         }
-        System.out.println(user.getPassword());
         try {
             if(!user.getPassword().equals((hashPassword(signupDto.getPassword())))){
                 throw new AuthenticationException("Wrong password");

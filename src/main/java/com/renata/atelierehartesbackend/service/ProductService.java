@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.renata.atelierehartesbackend.common.ApiResponse;
+import com.renata.atelierehartesbackend.exceptions.CustomException;
+import com.renata.atelierehartesbackend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.google.protobuf.Option;
 import com.renata.atelierehartesbackend.dto.product.ProductDto;
 import com.renata.atelierehartesbackend.exceptions.ProductNotExistException;
-import com.renata.atelierehartesbackend.model.Category;
 import com.renata.atelierehartesbackend.model.Product;
 import com.renata.atelierehartesbackend.repository.ProductRepo;
 
@@ -23,13 +24,12 @@ public class ProductService {
     @Autowired
     ProductRepo productRepo;
 
-    public void createProduct(ProductDto productDto,Optional<Category> optinalCategory){
+    public void createProduct(ProductDto productDto){
         Product product = new Product();
         product.setName(productDto.getName());
         product.setImageURL(productDto.getImageURL());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
-        product.setCategory(optinalCategory.get());
         productRepo.save(product);
     }
 
@@ -49,7 +49,7 @@ public class ProductService {
         }
         return optionalProduct.get();
     }
-    public void updateProduct(Integer id,ProductDto productDto,Optional<Category> optinalCategory) throws Exception{
+    public void updateProduct(Integer id,ProductDto productDto) throws Exception{
         Optional<Product> optionalProduct = productRepo.findById(id);
         
         if(!optionalProduct.isPresent()){
@@ -62,13 +62,11 @@ public class ProductService {
         product.setImageURL(productDto.getImageURL());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());
-        product.setCategory(optinalCategory.get());
         productRepo.save(product);
     }
     
     public static ProductDto getDtoFromProduct(Product product) {
-        ProductDto productDto = new ProductDto(product);
-        return productDto;
+        return new ProductDto(product);
     }
 
     public boolean IsEmpty(Integer id){
@@ -76,9 +74,20 @@ public class ProductService {
     }
     public Product getProductById(Integer productId){
         Optional<Product> optionalProduct = productRepo.findById(productId);
-        if (!optionalProduct.isPresent())
-            return null;
+        return optionalProduct.orElse(null);
             // throw new ProductNotExistException("Product id is invalid " + productId);
-        return optionalProduct.get();
+    }
+    public void updateProductItem(ProductDto productDto){
+        Product product = new Product(productDto);
+        productRepo.save(product);
+    }
+    public boolean deleteProductItem(Integer productId) {
+        Optional<Product> optionalProduct = productRepo.findById(productId);
+
+        if(optionalProduct.isEmpty()){
+            throw new CustomException("Product id is invalid " + productId);
+        }
+        productRepo.deleteById(productId);
+        return true;
     }
 }

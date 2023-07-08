@@ -35,20 +35,19 @@ public class Product {
     private @NotNull double price;
     private @NotNull String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JsonIgnore
-    @JoinColumn(name = "category_id", nullable = false)
-    Category category;
-
-    public Product(String name, String imageURL, double price, String description, Category category) {
+    public Product(String name, String imageURL, double price, String description) {
         super();
         this.name = name;
         this.imageURL = imageURL;
         this.price = price;
         this.description = description;
-        this.category = category;
     }
-    public Product(ProductDto productDto, Category category) {
+    public Product(ProductDto productDto) {
+        this.id = productDto.getId();
+        this.name = productDto.getName();
+        this.description = productDto.getDescription();
+        this.imageURL = productDto.getImageURL();
+        this.price = productDto.getPrice();
     }
 
 }
