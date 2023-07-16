@@ -2,13 +2,10 @@ package com.renata.atelierehartesbackend.controller;
 
 import java.security.NoSuchAlgorithmException;
 
+import com.renata.atelierehartesbackend.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.renata.atelierehartesbackend.dto.ResponseDto;
 import com.renata.atelierehartesbackend.dto.user.SigninResponseDto;
@@ -37,5 +34,10 @@ import com.renata.atelierehartesbackend.common.ApiResponse;
     @PostMapping("/checkadmin")
     public ResponseEntity<ApiResponse> checkadmin(@RequestParam("token") String token){
         return userService.checkadmin(token);
+    }
+    @GetMapping("/")
+    public User getUser(@RequestParam("token") String token){
+
+        return userService.getUser(token);
     }
 }

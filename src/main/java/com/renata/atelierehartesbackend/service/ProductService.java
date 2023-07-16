@@ -25,12 +25,7 @@ public class ProductService {
     ProductRepo productRepo;
 
     public void createProduct(ProductDto productDto){
-        Product product = new Product();
-        product.setName(productDto.getName());
-        product.setImageURL(productDto.getImageURL());
-        product.setDescription(productDto.getDescription());
-        product.setPrice(productDto.getPrice());
-        productRepo.save(product);
+        productRepo.save(new Product(productDto));
     }
 
     public List<ProductDto> findAll(){       

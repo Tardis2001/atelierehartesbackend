@@ -1,14 +1,8 @@
 package com.renata.atelierehartesbackend.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.renata.atelierehartesbackend.enums.Role;
 
 import lombok.Getter;
@@ -43,6 +37,11 @@ public class User {
     
     @Column(name = "password")
     private String password;
+
+//    @OneToMany
+//    @JsonIgnore
+//    @JoinColumn(name = "post_id", referencedColumnName = "id")
+//    private Post post;
 
     public User(String firstName, String secondName, String email, String username,Role role, String password) {
         this.firstName = firstName;

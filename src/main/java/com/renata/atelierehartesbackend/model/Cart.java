@@ -28,7 +28,6 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Cart {
 
     @Id
@@ -40,12 +39,12 @@ public class Cart {
 
     @ManyToOne
     @JoinColumn(name = "product_id", referencedColumnName = "id")
-	Product product;
+	private Product product;
 
     @JsonIgnore
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
     @JoinColumn(nullable = false, name = "user_id")
-    User user;
+    private User user;
 
     private int quantity;
 

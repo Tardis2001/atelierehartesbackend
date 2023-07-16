@@ -35,13 +35,6 @@ public class Product {
     private @NotNull double price;
     private @NotNull String description;
 
-    public Product(String name, String imageURL, double price, String description) {
-        super();
-        this.name = name;
-        this.imageURL = imageURL;
-        this.price = price;
-        this.description = description;
-    }
     public Product(ProductDto productDto) {
         this.id = productDto.getId();
         this.name = productDto.getName();

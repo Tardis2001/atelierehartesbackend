@@ -30,12 +30,13 @@ public class OrderController {
     private TokenService tokenService;
 
     @PostMapping("/create-checkout-session")
-    public ResponseEntity<StripeResponse> checkoutList(@RequestBody List<CheckoutItemDto> checkoutItemDtoList)throws StripeException {
-            Session session = orderService.createSession(checkoutItemDtoList);
-            StripeResponse stripeResponse = new StripeResponse(session.getId());
+    public ResponseEntity<StripeResponse> checkoutList(@RequestBody List<CheckoutItemDto> checkoutItemDtoList) throws StripeException {
+        Session session = orderService.createSession(checkoutItemDtoList);
+        StripeResponse stripeResponse = new StripeResponse(session.getId());
 
         return new ResponseEntity<StripeResponse>(stripeResponse, HttpStatus.OK);
     }
+
     // place order after checkout
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> placeOrder(@RequestParam("token") String token, @RequestParam("sessionId") String sessionId)
@@ -65,17 +66,27 @@ public class OrderController {
 
     // get orderitems for an order
     @GetMapping("/{id}")
-    public ResponseEntity getOrderById(@PathVariable("id") Integer id, @RequestParam("token") String token)
-            throws AuthenticationFailException {
+    public ResponseEntity getOrderById(@PathVariable("id") Integer id, @RequestParam("token") String token) throws AuthenticationFailException {
         // validate token
         tokenService.authenticate(token);
         try {
             Order order = orderService.getOrder(id);
-            return new ResponseEntity<>(order,HttpStatus.OK);
-        }
-        catch (OrderNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(order, HttpStatus.OK);
+        } catch (OrderNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
 
     }
+
+//    @DeleteMapping("/remove/{id}")
+//    public ResponseEntity removeOrder(@PathVariable("id") Integer id, @RequestParam("token") String token) throws AuthenticationFailException {
+//        // validate token
+//        tokenService.authenticate(token);
+//        try {
+//            Order order = orderService.getOrder(id);
+//            return new ResponseEntity<>(order, HttpStatus.OK);
+//        } catch (OrderNotFoundException e) {
+//            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+//        }
+//    }
 }

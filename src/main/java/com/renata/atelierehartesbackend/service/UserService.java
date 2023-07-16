@@ -102,9 +102,15 @@ public class UserService {
         User user = authenticationService.getUser(token); 
         
         if(user.getRole() == Role.admin){
-                    return new ResponseEntity<ApiResponse>(new ApiResponse(true, "You have permission"), HttpStatus.OK);
+            return new ResponseEntity<ApiResponse>(new ApiResponse(true, "You have permission"), HttpStatus.OK);
         }
         return new ResponseEntity<ApiResponse>(new ApiResponse(false, "You don't have permission"), HttpStatus.UNAUTHORIZED);
     }
 
+    public User getUser(String token){
+        authenticationService.authenticate(token);
+
+        return authenticationService.getUser(token);
+
+    }
 }

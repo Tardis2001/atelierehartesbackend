@@ -36,7 +36,7 @@ public class WishListController {
         
     }
     @GetMapping("/")
-    public ResponseEntity<List<ProductDto>> getWishList(@PathVariable("token") String token)
+    public ResponseEntity<List<ProductDto>> getWishList(@RequestParam("token") String token)
     {
         int user_id = tokenService.getUser(token).getId();
         List<Wishlist> body = wishlistService.readWishList(user_id);
